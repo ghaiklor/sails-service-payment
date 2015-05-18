@@ -1,0 +1,33 @@
+{
+  "name": "sails-service-payment",
+  "version": "0.1.0",
+  "description": "Service for Sails framework with Payment features",
+  "main": "index.js",
+  "scripts": {
+    "test": "istanbul cover _mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghaiklor/sails-service-payment.git"
+  },
+  "keywords": [
+    "sails",
+    "service",
+    "payment"
+  ],
+  "author": "ghaiklor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ghaiklor/sails-service-payment/issues"
+  },
+  "homepage": "https://github.com/ghaiklor/sails-service-payment#readme",
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "istanbul": "^0.3.14",
+    "mocha": "^2.2.5"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.25",
+    "stripe": "^3.3.4"
+  }
+}
