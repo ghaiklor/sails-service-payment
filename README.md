@@ -6,7 +6,9 @@ Service for Sails framework with Payment features.
 
 ## List of supported payment systems
 
-- Stripe API ([docs](https://stripe.com/docs/api/node#intro))
+- Authorize ([docs](http://developer.authorize.net/api/reference))
+- BrainTreePayments ([docs](https://developers.braintreepayments.com/javascript+node/reference/overview))
+- Stripe API ([docs](https://stripe.com/docs/api/node))
 
 ## Getting Started
 
@@ -35,9 +37,12 @@ module.exports = {
   checkout: function(req, res) {
     stripe
       .checkout({
-        card: '<CREDIT_CARD>',
-        expired: '<EXPIRY_DATE>',
-        cvv: '<CVV_CODE>'
+        amount: req.param('amount'),
+        currency: req.param('currency'),
+        card: req.param('card'),
+        expMonth: req.param('expiryMonth'),
+        expYear: req.param('expiryYear')
+        cvv: req.param('cvv')
       })
       .then(res.ok)
       .catch(res.serverError);
@@ -47,10 +52,11 @@ module.exports = {
 
 ## API
 
-Each of Payment instances has few methods
+Each of Payment instances has few methods:
 
-- checkout(config) - In config you can override pre-defined options when you created instance. Returns Promise.
-- refund(config) - In config you can override pre-defined options when you created instance. Returns Promise.
+- checkout(config) - Create charge for credit card. In config you can override pre-defined options. Returns Promise;
+- subscription(config) - Create recurring payment. In config you can override pre-defined options. Returns Promise;
+- refund(config) - Refunds a charge that previously been created. In config you can override pre-defined options. Returns Promise;
 
 ## Examples
 
