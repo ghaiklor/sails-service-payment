@@ -8,7 +8,7 @@ Service for Sails framework with Payment features.
 
 - Authorize ([docs](http://developer.authorize.net/api/reference))
 - BrainTreePayments ([docs](https://developers.braintreepayments.com/javascript+node/reference/overview))
-- Stripe API ([docs](https://stripe.com/docs/api/node))
+- Stripe ([docs](https://stripe.com/docs/api/node))
 
 ## Getting Started
 
@@ -59,6 +59,26 @@ Each of Payment instances has few methods:
 - refund(config) - Refunds a charge that previously been created. In config you can override pre-defined options. Returns Promise;
 
 ## Examples
+
+### AuthorizePayment
+
+```javascript
+var authorize = PaymentService.create('authorize', {
+  apiKey: '<API_KEY>'
+});
+
+authorize.checkout();
+```
+
+### BrainTreePayment
+
+```javascript
+var brainTree = PaymentService.create('braintree', {
+  apiKey: '<API_KEY>'
+});
+
+brainTree.checkout();
+```
 
 ### StripePayment
 
