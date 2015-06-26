@@ -37,12 +37,13 @@ module.exports = {
   checkout: function(req, res) {
     stripe
       .checkout({
-        amount: req.param('amount'),
-        currency: req.param('currency'),
-        card: req.param('card'),
-        expMonth: req.param('expiryMonth'),
-        expYear: req.param('expiryYear')
-        cvv: req.param('cvv')
+        amount: req.param('amount'), // How much money to charge
+        cardNumber: req.param('cardNumber'), // Card Number (16-digit)
+        cardHolderName: req.param('cardHolderName'), // Card Holder Name
+        expMonth: req.param('expMonth'), // Expiration Date (Month)
+        expYear: req.param('expYear'), // Expiration Date (Year)
+        cvv: req.param('cvv'), // CVV Code
+        currency: req.param('currency') // What the currency of payment
       })
       .then(res.ok)
       .catch(res.serverError);
@@ -52,11 +53,9 @@ module.exports = {
 
 ## API
 
-Each of Payment instances has few methods:
+Each of Payment instances has only one method:
 
 - checkout(config) - Create charge for credit card. In config you can override pre-defined options. Returns Promise;
-- subscription(config) - Create recurring payment. In config you can override pre-defined options. Returns Promise;
-- refund(config) - Refunds a charge that previously been created. In config you can override pre-defined options. Returns Promise;
 
 ## Examples
 
