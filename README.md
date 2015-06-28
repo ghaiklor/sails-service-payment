@@ -65,8 +65,6 @@ Each of Payment instances has only one method:
 var authorize = PaymentService.create('authorize', {
   apiKey: '<API_KEY>'
 });
-
-authorize.checkout();
 ```
 
 ### BrainTreePayment
@@ -75,8 +73,6 @@ authorize.checkout();
 var brainTree = PaymentService.create('braintree', {
   apiKey: '<API_KEY>'
 });
-
-brainTree.checkout();
 ```
 
 ### StripePayment
@@ -84,12 +80,6 @@ brainTree.checkout();
 ```javascript
 var stripe = PaymentService.create('stripe', {
   apiKey: '<API_KEY>'
-});
-
-stripe.checkout({
-  cardNumber: '<CARD_NUMBER>',
-  expireDate: '<EXPIRY_DATE>',
-  cvv: '<CVV_CODE>'
 });
 ```
 
