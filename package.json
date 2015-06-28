@@ -23,7 +23,7 @@
   "homepage": "https://github.com/ghaiklor/sails-service-payment#readme",
   "devDependencies": {
     "chai": "^3.0.0",
-    "istanbul": "^0.3.14",
+    "istanbul": "^0.3.17",
     "mocha": "^2.2.5"
   },
   "dependencies": {
