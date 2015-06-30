@@ -6,6 +6,8 @@ describe('BasePayment', function () {
     assert.isFunction(BasePayment);
     assert.isFunction(BasePayment.prototype.getConfig);
     assert.isFunction(BasePayment.prototype.setConfig);
+    assert.isFunction(BasePayment.prototype.getProvider);
+    assert.isFunction(BasePayment.prototype.setProvider);
     assert.isFunction(BasePayment.prototype.checkout);
 
     assert.throw(function () {
