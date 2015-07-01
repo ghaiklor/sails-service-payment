@@ -26,6 +26,9 @@ var CHECKOUT_CONFIG_SHOULD_BE = {
     expirationMonth: '01',
     expirationYear: '2018',
     cvv: '123'
+  },
+  options: {
+    submitForSettlement: true
   }
 };
 
