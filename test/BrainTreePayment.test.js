@@ -18,7 +18,7 @@ var CHECKOUT_CONFIG = {
   cvv: '123'
 };
 
-var BRAINTREE_CHECKOUT_CONFIG = {
+var CHECKOUT_CONFIG_SHOULD_BE = {
   amount: '10.00',
   creditCard: {
     number: '4242424242424242',
@@ -45,7 +45,7 @@ describe('BrainTreePayment', function () {
       .checkout(CHECKOUT_CONFIG)
       .then(function () {
         assert(payment._provider.transaction.sale.calledOnce);
-        assert.deepEqual(payment._provider.transaction.sale.getCall(0).args[0], BRAINTREE_CHECKOUT_CONFIG);
+        assert.deepEqual(payment._provider.transaction.sale.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
         assert.isFunction(payment._provider.transaction.sale.getCall(0).args[1]);
 
         payment._provider.transaction.sale.restore();
