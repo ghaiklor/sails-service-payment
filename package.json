@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "bluebird": "^2.9.25",
+    "braintree": "^1.26.0",
     "stripe": "^3.3.4"
   }
 }
