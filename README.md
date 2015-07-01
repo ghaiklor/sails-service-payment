@@ -6,7 +6,6 @@ Service for Sails framework with Payment features.
 
 ## List of supported payment systems
 
-- Authorize ([docs](http://developer.authorize.net/api/reference))
 - BrainTreePayments ([docs](https://developers.braintreepayments.com/javascript+node/reference/overview))
 - Stripe ([docs](https://stripe.com/docs/api/node))
 
@@ -58,14 +57,6 @@ Each of Payment instances has only one method:
 - checkout(config) - Create charge for credit card. In config you can override pre-defined options. Returns Promise;
 
 ## Examples
-
-### AuthorizePayment
-
-```javascript
-var authorize = PaymentService.create('authorize', {
-  apiKey: '<API_KEY>'
-});
-```
 
 ### BrainTreePayment
 
