@@ -62,7 +62,19 @@ Each of Payment instances has only one method:
 
 ```javascript
 var brainTree = PaymentService.create('braintree', {
-  apiKey: '<API_KEY>'
+  sandbox: true, // Set to false if you're going to live
+  merchantId: '', // Your credentials from BrainTree dashboard
+  publicKey: '', // Your credentials from BrainTree dashboard
+  privateKey: '' // Your credentials from BrainTree dashboard
+});
+
+brainTree.checkout({
+  amount: '10.00',
+  cardNumber: '4242424242424242',
+  cardHolderName: 'Eugene Obrezkov',
+  expMonth: '01',
+  expYear: '2018',
+  cvv: '123'
 });
 ```
 
