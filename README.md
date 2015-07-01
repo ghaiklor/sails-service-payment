@@ -54,7 +54,7 @@ module.exports = {
 
 Each of Payment instances has only one method:
 
-- checkout(config) - Create charge for credit card. In config you can override pre-defined options. Returns Promise;
+- checkout(config) - Create charge for credit card. Returns Promise;
 
 ## Examples
 
@@ -75,7 +75,7 @@ brainTree.checkout({
   expMonth: '01',
   expYear: '2018',
   cvv: '123'
-});
+}).then(console.log.bind(console)).catch(console.error.bind(console));
 ```
 
 ### StripePayment
