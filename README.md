@@ -70,7 +70,7 @@ var brainTree = PaymentService.create('braintree', {
 });
 
 brainTree.checkout({
-  amount: '10.00',
+  amount: 100 * 10, // $10
   cardNumber: '4242424242424242',
   cardHolderName: 'Eugene Obrezkov',
   expMonth: '01',

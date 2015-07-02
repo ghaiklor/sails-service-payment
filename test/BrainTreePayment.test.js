@@ -10,7 +10,7 @@ var PROVIDER_CONFIG = {
 };
 
 var CHECKOUT_CONFIG = {
-  amount: 1000,
+  amount: 100 * 15.35,
   cardNumber: '4242424242424242',
   cardHolderName: 'Eugene Obrezkov',
   expMonth: '01',
@@ -19,7 +19,7 @@ var CHECKOUT_CONFIG = {
 };
 
 var CHECKOUT_CONFIG_SHOULD_BE = {
-  amount: '10.00',
+  amount: '15.35',
   creditCard: {
     number: '4242424242424242',
     cardholderName: 'Eugene Obrezkov',
