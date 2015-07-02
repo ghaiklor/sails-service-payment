@@ -36,13 +36,14 @@ module.exports = {
   checkout: function(req, res) {
     stripe
       .checkout({
-        amount: req.param('amount'), // How much money to charge
+        amount: req.param('amount'), // How much money to charge in cents
         cardNumber: req.param('cardNumber'), // Card Number (16-digit)
-        cardHolderName: req.param('cardHolderName'), // Card Holder Name
         expMonth: req.param('expMonth'), // Expiration Date (Month)
         expYear: req.param('expYear'), // Expiration Date (Year)
-        cvv: req.param('cvv'), // CVV Code
-        currency: req.param('currency') // What the currency of payment
+        cvv: req.param('cvv'), // CVV Code (optional, but highly recommend)
+        cardHolderName: req.param('cardHolderName'), // Card Holder Name (optional)
+        currency: req.param('currency'), // What the currency of payment (optional)
+        description: req.param('description') // Description for payment (optional)
       })
       .then(res.ok)
       .catch(res.serverError);
