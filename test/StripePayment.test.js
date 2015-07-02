@@ -46,7 +46,7 @@ describe('StripePayment', function () {
 
     payment
       .checkout(CHECKOUT_CONFIG)
-      .then(function (result) {
+      .then(function () {
         assert(payment._provider.charges.create.calledOnce);
         assert.deepEqual(payment._provider.charges.create.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
         assert.isFunction(payment._provider.charges.create.getCall(0).args[1]);

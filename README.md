@@ -69,14 +69,17 @@ var brainTree = PaymentService.create('braintree', {
   privateKey: '' // Your credentials from BrainTree dashboard
 });
 
-brainTree.checkout({
-  amount: 100 * 10, // $10
-  cardNumber: '4242424242424242',
-  cardHolderName: 'Eugene Obrezkov',
-  expMonth: '01',
-  expYear: '2018',
-  cvv: '123'
-}).then(console.log.bind(console)).catch(console.error.bind(console));
+brainTree
+  .checkout({
+    amount: 100 * 10, // $10
+    cardNumber: '4242424242424242',
+    cardHolderName: 'Eugene Obrezkov',
+    expMonth: '01',
+    expYear: '2018',
+    cvv: '123'
+  })
+  .then(console.log.bind(console))
+  .catch(console.error.bind(console));
 ```
 
 ### StripePayment
@@ -85,6 +88,20 @@ brainTree.checkout({
 var stripe = PaymentService.create('stripe', {
   apiKey: '<API_KEY>'
 });
+
+stripe
+  .checkout({
+    amount: 100 * 10,
+    cardNumber: '4242424242424242',
+    expMonth: '01',
+    expYear: '2018',
+    cvv: '123',
+    cardHolderName: 'Eugene Obrezkov',
+    currency: 'usd',
+    description: 'TEST'
+  })
+  .then(console.log.bind(console))
+  .catch(console.error.bind(console));
 ```
 
 ## License
