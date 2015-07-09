@@ -36,14 +36,11 @@ module.exports = {
   checkout: function(req, res) {
     stripe
       .checkout({
-        amount: req.param('amount'), // How much money to charge in cents
-        cardNumber: req.param('cardNumber'), // Card Number (16-digit)
-        expMonth: req.param('expMonth'), // Expiration Date (Month)
-        expYear: req.param('expYear'), // Expiration Date (Year)
-        cvv: req.param('cvv'), // CVV Code (optional, but highly recommend)
-        cardHolderName: req.param('cardHolderName'), // Card Holder Name (optional)
-        currency: req.param('currency'), // What the currency of payment (optional)
-        description: req.param('description') // Description for payment (optional)
+        amount: req.param('amount'),
+        cardNumber: req.param('cardNumber'),
+        expMonth: req.param('expMonth'),
+        expYear: req.param('expYear'),
+        cvv: req.param('cvv')
       })
       .then(res.ok)
       .catch(res.serverError);
@@ -53,9 +50,10 @@ module.exports = {
 
 ## API
 
-Each of Payment instances has only one method:
+Each of Payment instances has:
 
 - checkout(config) - Create charge for credit card. Returns Promise;
+- refund(transactionId) - Refund already settled transaction. TransactionID you get from checkout. Returns Promise;
 
 ## Examples
 
@@ -91,16 +89,38 @@ var stripe = PaymentService.create('stripe', {
 
 stripe
   .checkout({
+    amount: 100 * 10, // How much money to charge in cents
+    cardNumber: '4242424242424242', // Card Number (16-digit)
+    expMonth: '01', // Expiration Date (Month)
+    expYear: '2018', // Expiration Date (Year)
+    cvv: '123', // CVV Code (optional, but highly recommend)
+    cardHolderName: 'Eugene Obrezkov', // Card Holder Name (optional)
+    currency: 'usd', // What the currency of payment (optional)
+    description: 'TEST' // Description for payment (optional)
+  })
+  .then(console.log.bind(console))
+  .catch(console.error.bind(console));
+```
+
+### Refund on any payment system
+
+```javascript
+var stripe = PaymentService.create('stripe', {
+  apiKey: '<API_KEY>'
+});
+
+stripe
+  .checkout({
     amount: 100 * 10,
     cardNumber: '4242424242424242',
     expMonth: '01',
     expYear: '2018',
-    cvv: '123',
-    cardHolderName: 'Eugene Obrezkov',
-    currency: 'usd',
-    description: 'TEST'
+    cvv: '123'
   })
-  .then(console.log.bind(console))
+  .then(function(result) {
+    return stripe.refund(result.id);
+  })
+  .then(console.log.bind(console));
   .catch(console.error.bind(console));
 ```
 
