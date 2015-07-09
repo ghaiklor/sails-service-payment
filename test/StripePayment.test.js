@@ -40,18 +40,40 @@ describe('StripePayment', function () {
   it('Should properly make checkout', function (done) {
     var payment = new StripePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment._provider.charges, 'create', function (config, cb) {
+    sinon.stub(payment.getProvider().charges, 'create', function (config, cb) {
       cb();
     });
 
     payment
       .checkout(CHECKOUT_CONFIG)
       .then(function () {
-        assert(payment._provider.charges.create.calledOnce);
-        assert.deepEqual(payment._provider.charges.create.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
-        assert.isFunction(payment._provider.charges.create.getCall(0).args[1]);
+        assert(payment.getProvider().charges.create.calledOnce);
+        assert.deepEqual(payment.getProvider().charges.create.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
+        assert.isFunction(payment.getProvider().charges.create.getCall(0).args[1]);
 
-        payment._provider.charges.create.restore();
+        payment.getProvider().charges.create.restore();
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('Should properly call refund method', function (done) {
+    var payment = new StripePayment(PROVIDER_CONFIG);
+
+    sinon.stub(payment.getProvider().charges, 'createRefund', function (transactionId, config, cb) {
+      cb();
+    });
+
+    payment
+      .refund('TRANSACTION_ID')
+      .then(function () {
+        assert(payment.getProvider().charges.createRefund.calledOnce);
+        assert.equal(payment.getProvider().charges.createRefund.getCall(0).args[0], 'TRANSACTION_ID');
+        assert.deepEqual(payment.getProvider().charges.createRefund.getCall(0).args[1], {});
+        assert.isFunction(payment.getProvider().charges.createRefund.getCall(0).args[2]);
+
+        payment.getProvider().charges.createRefund.restore();
 
         done();
       })
