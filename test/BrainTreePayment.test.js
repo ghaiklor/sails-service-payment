@@ -40,18 +40,39 @@ describe('BrainTreePayment', function () {
   it('Should properly call checkout method', function (done) {
     var payment = new BrainTreePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment._provider.transaction, 'sale', function (config, cb) {
+    sinon.stub(payment.getProvider().transaction, 'sale', function (config, cb) {
       cb();
     });
 
     payment
       .checkout(CHECKOUT_CONFIG)
       .then(function () {
-        assert(payment._provider.transaction.sale.calledOnce);
-        assert.deepEqual(payment._provider.transaction.sale.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
-        assert.isFunction(payment._provider.transaction.sale.getCall(0).args[1]);
+        assert(payment.getProvider().transaction.sale.calledOnce);
+        assert.deepEqual(payment.getProvider().transaction.sale.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
+        assert.isFunction(payment.getProvider().transaction.sale.getCall(0).args[1]);
 
-        payment._provider.transaction.sale.restore();
+        payment.getProvider().transaction.sale.restore();
+
+        done();
+      })
+      .catch(done);
+  });
+
+  it('Should properly call refund method', function (done) {
+    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+
+    sinon.stub(payment.getProvider().transaction, 'refund', function (transactionId, cb) {
+      cb();
+    });
+
+    payment
+      .refund('TRANSACTION_ID')
+      .then(function () {
+        assert(payment.getProvider().transaction.refund.calledOnce);
+        assert.equal(payment.getProvider().transaction.refund.getCall(0).args[0], 'TRANSACTION_ID');
+        assert.isFunction(payment.getProvider().transaction.refund.getCall(0).args[1]);
+
+        payment.getProvider().transaction.refund.restore();
 
         done();
       })
