@@ -9,9 +9,14 @@ describe('BasePayment', function () {
     assert.isFunction(BasePayment.prototype.getProvider);
     assert.isFunction(BasePayment.prototype.setProvider);
     assert.isFunction(BasePayment.prototype.checkout);
+    assert.isFunction(BasePayment.prototype.refund);
 
     assert.throw(function () {
       BasePayment.prototype.checkout();
+    }, Error);
+
+    assert.throw(function () {
+      BasePayment.prototype.refund();
     }, Error);
   });
 
@@ -48,6 +53,14 @@ describe('BasePayment', function () {
 
     assert.throw(function () {
       payment.checkout();
+    }, Error);
+  });
+
+  it('Should properly throw error on refund', function () {
+    var payment = new BasePayment();
+
+    assert.throw(function () {
+      payment.refund();
     }, Error);
   });
 });
