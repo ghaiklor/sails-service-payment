@@ -28,7 +28,7 @@
     "sinon": "^1.15.4"
   },
   "dependencies": {
-    "bluebird": "^2.9.25",
+    "bluebird": "^2.9.33",
     "braintree": "^1.26.0",
     "stripe": "^3.5.2"
   }
