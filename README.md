@@ -52,8 +52,8 @@ module.exports = {
 
 Each of Payment instances has:
 
-- checkout(config) - Create charge for credit card. Returns Promise;
-- refund(transactionId) - Refund already settled transaction. TransactionID you get from checkout. Returns Promise;
+- checkout(creditCard, config) - Create charge for credit card. In config you can add specific provider properties. Returns Promise;
+- refund(transactionId, config) - Refund already settled transaction. TransactionID you get from checkout. In config you can add specific provider properties. Returns Promise;
 
 ## Examples
 
@@ -61,10 +61,12 @@ Each of Payment instances has:
 
 ```javascript
 var brainTree = PaymentService.create('braintree', {
-  sandbox: true, // Set to false if you're going to live
-  merchantId: '', // Your credentials from BrainTree dashboard
-  publicKey: '', // Your credentials from BrainTree dashboard
-  privateKey: '' // Your credentials from BrainTree dashboard
+  provider: {
+    sandbox: true, // Set to false if you're going to live
+    merchantId: '', // Your credentials from BrainTree dashboard
+    publicKey: '', // Your credentials from BrainTree dashboard
+    privateKey: '' // Your credentials from BrainTree dashboard
+  }
 });
 
 brainTree
@@ -84,7 +86,9 @@ brainTree
 
 ```javascript
 var stripe = PaymentService.create('stripe', {
-  apiKey: '<API_KEY>'
+  provider: {
+    apiKey: '<API_KEY>'
+  }
 });
 
 stripe
@@ -106,7 +110,9 @@ stripe
 
 ```javascript
 var stripe = PaymentService.create('stripe', {
-  apiKey: '<API_KEY>'
+  provider: {
+    apiKey: '<API_KEY>'
+  }
 });
 
 stripe
