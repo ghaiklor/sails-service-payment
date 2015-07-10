@@ -32,13 +32,30 @@ var CHECKOUT_CONFIG_SHOULD_BE = {
   }
 };
 
+var CHECKOUT_CONFIG_EXTENDED_SHOULD_BE = {
+  amount: '15.35',
+  creditCard: {
+    number: '4242424242424242',
+    cardholderName: 'Eugene Obrezkov',
+    expirationMonth: '01',
+    expirationYear: '2018',
+    cvv: '123'
+  },
+  options: {
+    submitForSettlement: true
+  },
+  customer: {
+    email: 'ghaiklor@gmail.com'
+  }
+};
+
 describe('BrainTreePayment', function () {
   it('Should properly export', function () {
     assert.isFunction(BrainTreePayment);
   });
 
   it('Should properly call checkout method', function (done) {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+    var payment = new BrainTreePayment({provider: PROVIDER_CONFIG});
 
     sinon.stub(payment.getProvider().transaction, 'sale', function (config, cb) {
       cb();
@@ -58,8 +75,33 @@ describe('BrainTreePayment', function () {
       .catch(done);
   });
 
+  it('Should properly extend properties on checkout', function (done) {
+    var payment = new BrainTreePayment({provider: PROVIDER_CONFIG});
+
+    sinon.stub(payment.getProvider().transaction, 'sale', function (config, cb) {
+      cb();
+    });
+
+    payment
+      .checkout(CHECKOUT_CONFIG, {
+        customer: {
+          email: 'ghaiklor@gmail.com'
+        }
+      })
+      .then(function () {
+        assert(payment.getProvider().transaction.sale.calledOnce);
+        assert.deepEqual(payment.getProvider().transaction.sale.getCall(0).args[0], CHECKOUT_CONFIG_EXTENDED_SHOULD_BE);
+        assert.isFunction(payment.getProvider().transaction.sale.getCall(0).args[1]);
+
+        payment.getProvider().transaction.sale.restore();
+
+        done();
+      })
+      .catch(done);
+  });
+
   it('Should properly call refund method', function (done) {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+    var payment = new BrainTreePayment({provider: PROVIDER_CONFIG});
 
     sinon.stub(payment.getProvider().transaction, 'refund', function (transactionId, cb) {
       cb();

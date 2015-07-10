@@ -11,8 +11,8 @@ describe('PaymentService', function () {
   });
 
   it('Should properly create instances', function () {
-    assert.instanceOf(PaymentService.create('braintree'), BrainTreePayment);
-    assert.instanceOf(PaymentService.create('stripe'), StripePayment);
+    assert.instanceOf(PaymentService.create('braintree', {provider: {}}), BrainTreePayment);
+    assert.instanceOf(PaymentService.create('stripe', {provider: {}}), StripePayment);
   });
 
   it('Should properly throw exception on create unrecognised', function () {
