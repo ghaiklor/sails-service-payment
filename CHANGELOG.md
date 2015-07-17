@@ -4,6 +4,7 @@
 
 - Replace `getConfig` and `setConfig` with `get` and `set` methods;
 - Implement `retrieve` method that allows to get info about settled transaction;
+- Optimize `PaymentService.create` method;
 - Improve test coverage;
 - Update docs;
 
