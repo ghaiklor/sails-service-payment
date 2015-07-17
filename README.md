@@ -73,13 +73,11 @@ Retrieve information about settled transaction. Returns Promise.
 
 `transactionId` - ID of transaction that you got from `checkout` result.
 
-### refund(transactionId, [config])
+### refund(transactionId)
 
 Refund already settled transaction. Returns Promise.
 
 `transactionId` - ID of settled transaction. You can get it from `checkout` result.
-
-`config` - Additional configuration for specific payment systems. See appropriate documentation for payment system.
 
 ## Examples
 
