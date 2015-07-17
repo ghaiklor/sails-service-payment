@@ -31,6 +31,7 @@ describe('BasePayment', function () {
       }
     });
 
+    assert.deepEqual(payment.get(), {foo: 'bar', obj: {foo: 'bar'}});
     assert.equal(payment.get('foo'), 'bar');
     assert.equal(payment.get('obj.foo'), 'bar');
     assert.deepEqual(payment.get('obj'), {foo: 'bar'});
