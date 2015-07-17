@@ -50,13 +50,13 @@ module.exports = {
 
 ## API
 
-Each of Payment instances has 2 methods:
+Each of Payment instances has 3 methods:
 
 ### checkout(creditCard, [config])
 
-Create charge from credit card. Returns Promise.
+Create charge from credit card and proceed to settled transaction. Returns Promise.
 
-`creditCard` - Hashmap with credit card information.
+`creditCard` - Object with credit card information:
 
   - `creditCard.amount` - Amount of price in cents, for example $10 = 1000;
   - `creditCard.cardNumber` - 16-digit number of credit card;
@@ -65,6 +65,12 @@ Create charge from credit card. Returns Promise.
   - `creditCard.cvv` - CVV code (3-digit)
 
 `config` - Additional configuration for specific payment systems. See appropriated documentation for payment system.
+
+### retrieve(transactionId)
+
+Retrieve information about settled transaction. Returns Promise.
+
+`transactionId` - ID of transaction that you got from `checkout` result.
 
 ### refund(transactionId, [config])
 
