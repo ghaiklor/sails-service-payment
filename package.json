@@ -1,6 +1,6 @@
 {
   "name": "sails-service-payment",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Service for Sails framework with Payment features",
   "main": "index.js",
   "scripts": {
