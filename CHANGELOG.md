@@ -3,6 +3,9 @@
 ## Edge version
 
 - Replace `getConfig` and `setConfig` with `get` and `set` methods;
+- Implement `retrieve` method that allows to get info about settled transaction;
+- Improve test coverage;
+- Update docs;
 
 ## 1.2.0
 
