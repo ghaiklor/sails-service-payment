@@ -50,10 +50,29 @@ module.exports = {
 
 ## API
 
-Each of Payment instances has:
+Each of Payment instances has 2 methods:
 
-- checkout(creditCard, config) - Create charge for credit card. In config you can add specific provider properties. Returns Promise;
-- refund(transactionId, config) - Refund already settled transaction. TransactionID you get from checkout. In config you can add specific provider properties. Returns Promise;
+### checkout(creditCard, [config])
+
+Create charge from credit card. Returns Promise.
+
+`creditCard` - Hashmap with credit card information.
+
+  - `creditCard.amount` - Amount of price in cents, for example $10 = 1000;
+  - `creditCard.cardNumber` - 16-digit number of credit card;
+  - `creditCard.expMonth` - Expiration date (month);
+  - `creditCard.expYear` - Expiration date (year);
+  - `creditCard.cvv` - CVV code (3-digit)
+
+`config` - Additional configuration for specific payment systems. See appropriated documentation for payment system.
+
+### refund(transactionId, [config])
+
+Refund already settled transaction. Returns Promise.
+
+`transactionId` - ID of settled transaction. You can get it from `checkout` result.
+
+`config` - Additional configuration for specific payment systems. See appropriated documentation for payment system.
 
 ## Examples
 
