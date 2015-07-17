@@ -60,11 +60,12 @@ Create charge from credit card and proceed to settled transaction. Returns Promi
 
   - `creditCard.amount` - Amount of price in cents, for example $10 = 1000;
   - `creditCard.cardNumber` - 16-digit number of credit card;
+  - `creditCard.cardHolderName` - Full name of card holder
   - `creditCard.expMonth` - Expiration date (month);
   - `creditCard.expYear` - Expiration date (year);
   - `creditCard.cvv` - CVV code (3-digit)
 
-`config` - Additional configuration for specific payment systems. See appropriated documentation for payment system.
+`config` - Additional configuration for specific payment systems. See appropriate documentation for payment system.
 
 ### retrieve(transactionId)
 
@@ -78,7 +79,7 @@ Refund already settled transaction. Returns Promise.
 
 `transactionId` - ID of settled transaction. You can get it from `checkout` result.
 
-`config` - Additional configuration for specific payment systems. See appropriated documentation for payment system.
+`config` - Additional configuration for specific payment systems. See appropriate documentation for payment system.
 
 ## Examples
 
@@ -86,12 +87,10 @@ Refund already settled transaction. Returns Promise.
 
 ```javascript
 var brainTree = PaymentService.create('braintree', {
-  provider: {
-    sandbox: true, // Set to false if you're going to live
-    merchantId: '', // Your credentials from BrainTree dashboard
-    publicKey: '', // Your credentials from BrainTree dashboard
-    privateKey: '' // Your credentials from BrainTree dashboard
-  }
+  sandbox: true, // Set to false if you're going to live
+  merchantId: '', // Your credentials from BrainTree dashboard
+  publicKey: '', // Your credentials from BrainTree dashboard
+  privateKey: '' // Your credentials from BrainTree dashboard
 });
 
 brainTree
@@ -111,23 +110,41 @@ brainTree
 
 ```javascript
 var stripe = PaymentService.create('stripe', {
-  provider: {
-    apiKey: '<API_KEY>'
-  }
+  apiKey: '<API_KEY>'
 });
 
 stripe
   .checkout({
     amount: 100 * 10, // How much money to charge in cents
     cardNumber: '4242424242424242', // Card Number (16-digit)
+    cardHolderName: 'Eugene Obrezkov', // Card Holder Name (optional)
     expMonth: '01', // Expiration Date (Month)
     expYear: '2018', // Expiration Date (Year)
-    cvv: '123', // CVV Code (optional, but highly recommend)
-    cardHolderName: 'Eugene Obrezkov', // Card Holder Name (optional)
-    currency: 'usd', // What the currency of payment (optional)
-    description: 'TEST' // Description for payment (optional)
+    cvv: '123' // CVV Code (optional, but highly recommend)
   })
   .then(console.log.bind(console))
+  .catch(console.error.bind(console));
+```
+
+### Retrieve transaction info on any payment system
+
+```javascript
+var stripe = PaymentService.create('stripe', {
+  apiKey: '<API_KEY>'
+});
+
+stripe
+  .checkout({
+    amount: 100 * 10,
+    cardNumber: '4242424242424242',
+    expMonth: '01',
+    expYear: '2018',
+    cvv: '123'
+  })
+  .then(function(result) {
+    return stripe.retrieve(result.id);
+  })
+  .then(console.log.bind(console));
   .catch(console.error.bind(console));
 ```
 
@@ -135,9 +152,7 @@ stripe
 
 ```javascript
 var stripe = PaymentService.create('stripe', {
-  provider: {
-    apiKey: '<API_KEY>'
-  }
+  apiKey: '<API_KEY>'
 });
 
 stripe
