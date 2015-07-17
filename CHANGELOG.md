@@ -1,5 +1,9 @@
 # Changelog
 
+## Edge version
+
+- Replace `getConfig` and `setConfig` with `get` and `set` methods;
+
 ## 1.2.0
 
 - Implement adding specific provider options in checkout and refund methods;
