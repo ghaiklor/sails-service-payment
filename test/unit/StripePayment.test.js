@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
-import StripePayment from '../../lib/StripePayment';
+import StripePayment from '../../src/StripePayment';
 
 const PROVIDER_CONFIG = {
   apiKey: ''
@@ -49,14 +49,14 @@ describe('StripePayment', () => {
     assert.isFunction(StripePayment);
   });
 
-  it('Should properly make checkout', (done) => {
+  it('Should properly make checkout', done => {
     let payment = new StripePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().charges, 'create', (config, cb) => cb(null, 'CHARGE'));
 
     payment
       .checkout(CREDIT_CARD)
-      .then((charge) => {
+      .then(charge => {
         assert.equal(charge, 'CHARGE');
         assert(payment.getProvider().charges.create.calledOnce);
         assert.deepEqual(payment.getProvider().charges.create.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
@@ -69,7 +69,7 @@ describe('StripePayment', () => {
       .catch(done);
   });
 
-  it('Should properly throw exception on checkout', (done) => {
+  it('Should properly throw exception on checkout', done => {
     let payment = new StripePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().charges, 'create', (config, cb) => cb(new Error('Some error occurred')));
@@ -77,7 +77,7 @@ describe('StripePayment', () => {
     payment
       .checkout(CREDIT_CARD)
       .then(done)
-      .catch((error) => {
+      .catch(error => {
         assert.instanceOf(error, Error);
         assert(payment.getProvider().charges.create.calledOnce);
         assert.deepEqual(payment.getProvider().charges.create.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
@@ -115,7 +115,7 @@ describe('StripePayment', () => {
 
     payment
       .retrieve('TRANSACTION_ID')
-      .then((transaction) => {
+      .then(transaction => {
         assert.equal(transaction, 'TRANSACTION');
         assert(payment.getProvider().charges.retrieve.calledOnce);
         assert.deepEqual(payment.getProvider().charges.retrieve.getCall(0).args[0], 'TRANSACTION_ID');
@@ -128,7 +128,7 @@ describe('StripePayment', () => {
       .catch(done);
   });
 
-  it('Should properly throw exception on getting info about transaction', (done) => {
+  it('Should properly throw exception on getting info about transaction', done => {
     let payment = new StripePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().charges, 'retrieve', (transactionId, cb) => cb(new Error('Some error occurred')));
@@ -136,7 +136,7 @@ describe('StripePayment', () => {
     payment
       .retrieve('TRANSACTION_ID')
       .then(done)
-      .catch((error) => {
+      .catch(error => {
         assert.instanceOf(error, Error);
         assert(payment.getProvider().charges.retrieve.calledOnce);
         assert.deepEqual(payment.getProvider().charges.retrieve.getCall(0).args[0], 'TRANSACTION_ID');
@@ -148,14 +148,14 @@ describe('StripePayment', () => {
       });
   });
 
-  it('Should properly call refund method', (done) => {
+  it('Should properly call refund method', done => {
     let payment = new StripePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().charges, 'createRefund', (transactionId, config, cb) => cb(null, 'REFUND'));
 
     payment
       .refund('TRANSACTION_ID')
-      .then((refund) => {
+      .then(refund => {
         assert.equal(refund, 'REFUND');
         assert(payment.getProvider().charges.createRefund.calledOnce);
         assert.equal(payment.getProvider().charges.createRefund.getCall(0).args[0], 'TRANSACTION_ID');
@@ -169,7 +169,7 @@ describe('StripePayment', () => {
       .catch(done);
   });
 
-  it('Should properly throw exception on refund', (done) => {
+  it('Should properly throw exception on refund', done => {
     let payment = new StripePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().charges, 'createRefund', (transactionId, config, cb) => cb(new Error('Some error occurred')));
@@ -177,7 +177,7 @@ describe('StripePayment', () => {
     payment
       .refund('TRANSACTION_ID')
       .then(done)
-      .catch((error) => {
+      .catch(error => {
         assert.instanceOf(error, Error);
         assert(payment.getProvider().charges.createRefund.calledOnce);
         assert.equal(payment.getProvider().charges.createRefund.getCall(0).args[0], 'TRANSACTION_ID');

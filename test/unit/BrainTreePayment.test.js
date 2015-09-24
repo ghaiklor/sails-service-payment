@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import braintree from 'braintree';
 import sinon from 'sinon';
-import BrainTreePayment from '../../lib/BrainTreePayment';
+import BrainTreePayment from '../../src/BrainTreePayment';
 
 const PROVIDER_CONFIG = {
   sandbox: true,

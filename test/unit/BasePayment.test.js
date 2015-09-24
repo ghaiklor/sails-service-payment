@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import BasePayment from '../../lib/BasePayment';
+import BasePayment from '../../src/BasePayment';
 
 describe('BasePayment', () => {
   it('Should properly export', () => {
