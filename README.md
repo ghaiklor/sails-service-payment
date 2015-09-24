@@ -21,20 +21,24 @@ Then require it in your service.
 
 ```javascript
 // api/services/PaymentService.js
-module.exports = require('sails-service-payment');
+module.exports = require('sails-service-payment'); // ES5
+import PaymentService from 'sails-service-payment'; // ES6
 ```
 
 That's it, you can create payment instances for your needs in your project.
 
 ```javascript
-// api/controllers/PaymentController.js
-var stripe = PaymentService.create('stripe', {
+// api/services/PaymentService.js
+import PaymentService from 'sails-service-payment';
+
+export default PaymentService('stripe', {
   apiKey: '<STRIPE_API_KEY>'
 });
 
-module.exports = {
+// api/controllers/PaymentController.js
+export default {
   checkout: function(req, res) {
-    stripe
+    PaymentService
       .checkout({
         amount: req.param('amount'),
         cardNumber: req.param('cardNumber'),
@@ -43,7 +47,7 @@ module.exports = {
         cvv: req.param('cvv')
       })
       .then(res.ok)
-      .catch(res.serverError);
+      .catch(res.negotiate);
   }
 };
 ```
@@ -84,7 +88,7 @@ Refund already settled transaction. Returns Promise.
 ### BrainTreePayment
 
 ```javascript
-var brainTree = PaymentService.create('braintree', {
+let brainTree = PaymentService('braintree', {
   sandbox: true, // Set to false if you're going to live
   merchantId: '', // Your credentials from BrainTree dashboard
   publicKey: '', // Your credentials from BrainTree dashboard
@@ -107,7 +111,7 @@ brainTree
 ### StripePayment
 
 ```javascript
-var stripe = PaymentService.create('stripe', {
+let stripe = PaymentService('stripe', {
   apiKey: '<API_KEY>'
 });
 
@@ -127,7 +131,7 @@ stripe
 ### Retrieve transaction info on any payment system
 
 ```javascript
-var stripe = PaymentService.create('stripe', {
+let stripe = PaymentService('stripe', {
   apiKey: '<API_KEY>'
 });
 
@@ -149,7 +153,7 @@ stripe
 ### Refund on any payment system
 
 ```javascript
-var stripe = PaymentService.create('stripe', {
+let stripe = PaymentService('stripe', {
   apiKey: '<API_KEY>'
 });
 
