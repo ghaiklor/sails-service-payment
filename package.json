@@ -4,7 +4,10 @@
   "description": "Service for Sails framework with Payment features",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha"
+    "compile": "babel src --out-dir lib",
+    "dev": "babel src --watch --out-dir lib",
+    "prepublish": "npm run test",
+    "test": "npm run compile && istanbul cover _mocha"
   },
   "repository": {
     "type": "git",
@@ -21,17 +24,16 @@
     "url": "https://github.com/ghaiklor/sails-service-payment/issues"
   },
   "homepage": "https://github.com/ghaiklor/sails-service-payment#readme",
+  "dependencies": {
+    "braintree": "^1.26.0",
+    "lodash": "^3.10.0",
+    "stripe": "^3.5.2"
+  },
   "devDependencies": {
+    "babel": "^5.8.23",
     "chai": "^3.0.0",
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
     "sinon": "^1.15.4"
-  },
-  "dependencies": {
-    "bluebird": "^2.9.33",
-    "braintree": "^1.26.0",
-    "chai": "^3.1.0",
-    "lodash": "^3.10.0",
-    "stripe": "^3.5.2"
   }
 }
