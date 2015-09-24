@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var PaymentService = require('../');
+var PaymentService = require('../../index');
 var BrainTreePayment = PaymentService.BrainTreePayment;
 var StripePayment = PaymentService.StripePayment;
 
