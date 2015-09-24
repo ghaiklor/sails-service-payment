@@ -2,6 +2,3 @@ coverage
 src
 test
 .idea
-.editorconfig
-.gitignore
-.travis.yml
