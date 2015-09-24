@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0
+
+- Migration from ES5 syntax to ES6;
+- Remove `.create` method from PaymentService. PaymentService is a function now which you can call `PaymentService('stripe', {})`;
+
 ## 2.0.0
 
 - Replace `getConfig` and `setConfig` with `get` and `set` methods;
