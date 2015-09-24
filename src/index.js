@@ -9,7 +9,7 @@ const payments = {
 /**
  * Create payment instance based on type
  * @param {String} type Payment type
- * @param {Object} config Configuration for payment class
+ * @param {Object} [config] Configuration for payment class
  * @returns {*}
  */
 export default function (type, config) {
