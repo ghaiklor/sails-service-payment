@@ -4,10 +4,6 @@ import BasePayment from '../../lib/BasePayment';
 describe('BasePayment', () => {
   it('Should properly export', () => {
     assert.isFunction(BasePayment);
-    assert.isFunction(BasePayment.prototype.get);
-    assert.isFunction(BasePayment.prototype.set);
-    assert.isFunction(BasePayment.prototype.getProvider);
-    assert.isFunction(BasePayment.prototype.setProvider);
   });
 
   it('Should properly make objects configurable', () => {
@@ -39,7 +35,7 @@ describe('BasePayment', () => {
   it('Should properly get/set provider', () => {
     let payment = new BasePayment();
 
-    assert.notOk(payment.getProvider());
+    assert.instanceOf(payment.getProvider(), Object);
     assert.instanceOf(payment.setProvider('PROVIDER'), BasePayment);
     assert.equal(payment.getProvider(), 'PROVIDER');
   });

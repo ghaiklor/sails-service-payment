@@ -5,7 +5,7 @@ export default class BasePayment {
     this._config = {};
     this._provider = {};
 
-    Object.assign(this._config, config);
+    _.assign(this._config, config);
   }
 
   /**
