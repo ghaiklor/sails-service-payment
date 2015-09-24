@@ -1,16 +1,16 @@
-var assert = require('chai').assert;
-var braintree = require('braintree');
-var sinon = require('sinon');
-var BrainTreePayment = require('../lib/BrainTreePayment');
+import { assert } from 'chai';
+import braintree from 'braintree';
+import sinon from 'sinon';
+import BrainTreePayment from '../../lib/BrainTreePayment';
 
-var PROVIDER_CONFIG = {
+const PROVIDER_CONFIG = {
   sandbox: true,
   merchantId: '',
   publicKey: '',
   privateKey: ''
 };
 
-var CREDIT_CARD = {
+const CREDIT_CARD = {
   amount: 100 * 15.35,
   cardNumber: '4242424242424242',
   cardHolderName: 'Eugene Obrezkov',
@@ -19,7 +19,7 @@ var CREDIT_CARD = {
   cvv: '123'
 };
 
-var CHECKOUT_CONFIG_SHOULD_BE = {
+const CHECKOUT_CONFIG_SHOULD_BE = {
   amount: '15.35',
   creditCard: {
     number: '4242424242424242',
@@ -33,7 +33,7 @@ var CHECKOUT_CONFIG_SHOULD_BE = {
   }
 };
 
-var CHECKOUT_CONFIG_EXTENDED_SHOULD_BE = {
+const CHECKOUT_CONFIG_EXTENDED_SHOULD_BE = {
   amount: '15.35',
   creditCard: {
     number: '4242424242424242',
@@ -50,37 +50,33 @@ var CHECKOUT_CONFIG_EXTENDED_SHOULD_BE = {
   }
 };
 
-describe('BrainTreePayment', function () {
-  it('Should properly export', function () {
+describe('BrainTreePayment', () => {
+  it('Should properly export', () => {
     assert.isFunction(BrainTreePayment);
   });
 
-  it('Should properly create sandbox environment', function () {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+  it('Should properly create sandbox environment', () => {
+    let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
     assert.ok(payment.get('sandbox'));
     assert.deepEqual(payment.getProvider().config.environment, braintree.Environment.Sandbox);
   });
 
-  it('Should properly create production environment', function () {
-    var payment = new BrainTreePayment({
-      sandbox: false
-    });
+  it('Should properly create production environment', () => {
+    let payment = new BrainTreePayment({sandbox: false});
 
     assert.notOk(payment.get('sandbox'));
     assert.deepEqual(payment.getProvider().config.environment, braintree.Environment.Production);
   });
 
-  it('Should properly call checkout method', function (done) {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+  it('Should properly call checkout method', (done) => {
+    let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment.getProvider().transaction, 'sale', function (config, cb) {
-      cb();
-    });
+    sinon.stub(payment.getProvider().transaction, 'sale', (config, cb) => cb());
 
     payment
       .checkout(CREDIT_CARD)
-      .then(function () {
+      .then(() => {
         assert(payment.getProvider().transaction.sale.calledOnce);
         assert.deepEqual(payment.getProvider().transaction.sale.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
         assert.isFunction(payment.getProvider().transaction.sale.getCall(0).args[1]);
@@ -92,17 +88,15 @@ describe('BrainTreePayment', function () {
       .catch(done);
   });
 
-  it('Should properly throw error on checkout', function (done) {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+  it('Should properly throw error on checkout', (done) => {
+    let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment.getProvider().transaction, 'sale', function (config, cb) {
-      cb(new Error('Some error occurred'));
-    });
+    sinon.stub(payment.getProvider().transaction, 'sale', (config, cb) => cb(new Error('Some error occurred')));
 
     payment
       .checkout(CREDIT_CARD)
       .then(done)
-      .catch(function (error) {
+      .catch(error => {
         assert.instanceOf(error, Error);
         assert(payment.getProvider().transaction.sale.calledOnce);
         assert.deepEqual(payment.getProvider().transaction.sale.getCall(0).args[0], CHECKOUT_CONFIG_SHOULD_BE);
@@ -114,12 +108,10 @@ describe('BrainTreePayment', function () {
       });
   });
 
-  it('Should properly extend properties on checkout', function (done) {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+  it('Should properly extend properties on checkout', (done) => {
+    let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment.getProvider().transaction, 'sale', function (config, cb) {
-      cb();
-    });
+    sinon.stub(payment.getProvider().transaction, 'sale', (config, cb) => cb());
 
     payment
       .checkout(CREDIT_CARD, {
@@ -127,7 +119,7 @@ describe('BrainTreePayment', function () {
           email: 'ghaiklor@gmail.com'
         }
       })
-      .then(function () {
+      .then(() => {
         assert(payment.getProvider().transaction.sale.calledOnce);
         assert.deepEqual(payment.getProvider().transaction.sale.getCall(0).args[0], CHECKOUT_CONFIG_EXTENDED_SHOULD_BE);
         assert.isFunction(payment.getProvider().transaction.sale.getCall(0).args[1]);
@@ -139,16 +131,14 @@ describe('BrainTreePayment', function () {
       .catch(done);
   });
 
-  it('Should properly retrieve transaction', function (done) {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+  it('Should properly retrieve transaction', (done) => {
+    let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment.getProvider().transaction, 'find', function (transactionId, cb) {
-      cb(null, 'TRANSACTION');
-    });
+    sinon.stub(payment.getProvider().transaction, 'find', (transactionId, cb) => cb(null, 'TRANSACTION'));
 
     payment
       .retrieve('TRANSACTION_ID')
-      .then(function (transaction) {
+      .then(transaction => {
         assert.equal(transaction, 'TRANSACTION');
         assert(payment.getProvider().transaction.find.calledOnce);
         assert.deepEqual(payment.getProvider().transaction.find.getCall(0).args[0], 'TRANSACTION_ID');
@@ -161,17 +151,15 @@ describe('BrainTreePayment', function () {
       .catch(done);
   });
 
-  it('Should properly throw exception on retrieve', function (done) {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+  it('Should properly throw exception on retrieve', (done) => {
+    let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment.getProvider().transaction, 'find', function (transactionId, cb) {
-      cb(new Error('Some error occurred'));
-    });
+    sinon.stub(payment.getProvider().transaction, 'find', (transactionId, cb) => cb(new Error('Some error occurred')));
 
     payment
       .retrieve('TRANSACTION_ID')
       .then(done)
-      .catch(function (error) {
+      .catch(error => {
         assert.instanceOf(error, Error);
         assert(payment.getProvider().transaction.find.calledOnce);
         assert.deepEqual(payment.getProvider().transaction.find.getCall(0).args[0], 'TRANSACTION_ID');
@@ -183,16 +171,14 @@ describe('BrainTreePayment', function () {
       });
   });
 
-  it('Should properly call refund method', function (done) {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+  it('Should properly call refund method', (done) => {
+    let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment.getProvider().transaction, 'refund', function (transactionId, cb) {
-      cb();
-    });
+    sinon.stub(payment.getProvider().transaction, 'refund', (transactionId, cb) => cb());
 
     payment
       .refund('TRANSACTION_ID')
-      .then(function () {
+      .then(() => {
         assert(payment.getProvider().transaction.refund.calledOnce);
         assert.equal(payment.getProvider().transaction.refund.getCall(0).args[0], 'TRANSACTION_ID');
         assert.isFunction(payment.getProvider().transaction.refund.getCall(0).args[1]);
@@ -204,17 +190,15 @@ describe('BrainTreePayment', function () {
       .catch(done);
   });
 
-  it('Should properly throw exception on refund', function (done) {
-    var payment = new BrainTreePayment(PROVIDER_CONFIG);
+  it('Should properly throw exception on refund', (done) => {
+    let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment.getProvider().transaction, 'refund', function (transactionId, cb) {
-      cb(new Error('Some error occurred'));
-    });
+    sinon.stub(payment.getProvider().transaction, 'refund', (transactionId, cb) => cb(new Error('Some error occurred')));
 
     payment
       .refund('TRANSACTION_ID')
       .then(done)
-      .catch(function (error) {
+      .catch(error => {
         assert.instanceOf(error, Error);
         assert(payment.getProvider().transaction.refund.calledOnce);
         assert.equal(payment.getProvider().transaction.refund.getCall(0).args[0], 'TRANSACTION_ID');
