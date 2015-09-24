@@ -17,15 +17,7 @@ Install this module.
 npm install sails-service-payment
 ```
 
-Then require it in your service.
-
-```javascript
-// api/services/PaymentService.js
-module.exports = require('sails-service-payment'); // ES5
-import PaymentService from 'sails-service-payment'; // ES6
-```
-
-That's it, you can create payment instances for your needs in your project.
+Then require it in your service and create payment instance.
 
 ```javascript
 // api/services/PaymentService.js
