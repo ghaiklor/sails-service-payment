@@ -69,7 +69,7 @@ describe('BrainTreePayment', () => {
     assert.deepEqual(payment.getProvider().config.environment, braintree.Environment.Production);
   });
 
-  it('Should properly call checkout method', (done) => {
+  it('Should properly call checkout method', done => {
     let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().transaction, 'sale', (config, cb) => cb());
@@ -88,7 +88,7 @@ describe('BrainTreePayment', () => {
       .catch(done);
   });
 
-  it('Should properly throw error on checkout', (done) => {
+  it('Should properly throw error on checkout', done => {
     let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().transaction, 'sale', (config, cb) => cb(new Error('Some error occurred')));
@@ -131,7 +131,7 @@ describe('BrainTreePayment', () => {
       .catch(done);
   });
 
-  it('Should properly retrieve transaction', (done) => {
+  it('Should properly retrieve transaction', done => {
     let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().transaction, 'find', (transactionId, cb) => cb(null, 'TRANSACTION'));
@@ -151,7 +151,7 @@ describe('BrainTreePayment', () => {
       .catch(done);
   });
 
-  it('Should properly throw exception on retrieve', (done) => {
+  it('Should properly throw exception on retrieve', done => {
     let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().transaction, 'find', (transactionId, cb) => cb(new Error('Some error occurred')));
@@ -171,7 +171,7 @@ describe('BrainTreePayment', () => {
       });
   });
 
-  it('Should properly call refund method', (done) => {
+  it('Should properly call refund method', done => {
     let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().transaction, 'refund', (transactionId, cb) => cb());
@@ -190,7 +190,7 @@ describe('BrainTreePayment', () => {
       .catch(done);
   });
 
-  it('Should properly throw exception on refund', (done) => {
+  it('Should properly throw exception on refund', done => {
     let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().transaction, 'refund', (transactionId, cb) => cb(new Error('Some error occurred')));

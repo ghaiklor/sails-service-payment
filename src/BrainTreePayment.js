@@ -51,23 +51,23 @@ export default class BrainTreePayment extends BasePayment {
 
   /**
    * Retrieve info about transaction
-   * @param {String} transactionId Transaction ID
+   * @param {String} _transactionId Transaction ID
    * @returns {Promise}
    */
-  retrieve(transactionId) {
+  retrieve(_transactionId) {
     return new Promise((resolve, reject) => {
-      this.getProvider().transaction.find(transactionId, (error, result) => error ? reject(error) : resolve(result));
+      this.getProvider().transaction.find(_transactionId, (error, result) => error ? reject(error) : resolve(result));
     });
   }
 
   /**
    * Refund already settled transaction
-   * @param {String} transactionId Transaction ID
+   * @param {String} _transactionId Transaction ID
    * @returns {Promise}
    */
-  refund(transactionId) {
+  refund(_transactionId) {
     return new Promise((resolve, reject) => {
-      this.getProvider().transaction.refund(transactionId, (error, result) => error ? reject(error) : resolve(result));
+      this.getProvider().transaction.refund(_transactionId, (error, result) => error ? reject(error) : resolve(result));
     });
   }
 }
