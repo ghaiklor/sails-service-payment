@@ -89,7 +89,7 @@ describe('StripePayment', () => {
       });
   });
 
-  it('Should properly make checkout with extended properties', (done) => {
+  it('Should properly make checkout with extended properties', done => {
     let payment = new StripePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().charges, 'create', (config, cb) => cb());
@@ -108,7 +108,7 @@ describe('StripePayment', () => {
       .catch(done);
   });
 
-  it('Should properly retrieve info about transaction', (done) => {
+  it('Should properly retrieve info about transaction', done => {
     let payment = new StripePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().charges, 'retrieve', (transactionId, cb) => cb(null, 'TRANSACTION'));

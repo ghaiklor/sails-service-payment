@@ -108,7 +108,7 @@ describe('BrainTreePayment', () => {
       });
   });
 
-  it('Should properly extend properties on checkout', (done) => {
+  it('Should properly extend properties on checkout', done => {
     let payment = new BrainTreePayment(PROVIDER_CONFIG);
 
     sinon.stub(payment.getProvider().transaction, 'sale', (config, cb) => cb());
