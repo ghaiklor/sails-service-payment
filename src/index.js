@@ -1,7 +1,7 @@
 import BrainTreePayment from './BrainTreePayment';
 import StripePayment from './StripePayment';
 
-const payments = {
+const payment = {
   braintree: BrainTreePayment,
   stripe: StripePayment
 };
@@ -13,8 +13,8 @@ const payments = {
  * @returns {*}
  */
 export default function (type, config) {
-  if (payments[type.toLowerCase()] instanceof Function) {
-    return new payments[type.toLowerCase()](config);
+  if (payment[type.toLowerCase()] instanceof Function) {
+    return new payment[type.toLowerCase()](config);
   } else {
     throw new Error('Unrecognized type -> ' + type);
   }
