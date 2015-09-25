@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1
+
+- Typo fixes in docs;
+
 ## 3.0.0
 
 - Migration from ES5 syntax to ES6;
