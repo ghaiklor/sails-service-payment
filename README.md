@@ -1,6 +1,13 @@
 # sails-service-payment
 
-![Build Status](https://img.shields.io/travis/ghaiklor/sails-service-payment.svg) ![Coverage](https://img.shields.io/coveralls/ghaiklor/sails-service-payment.svg) ![Downloads](https://img.shields.io/npm/dm/sails-service-payment.svg) ![npm version](https://img.shields.io/npm/v/sails-service-payment.svg) ![dependencies](https://img.shields.io/david/ghaiklor/sails-service-payment.svg) ![dev dependencies](https://img.shields.io/david/dev/ghaiklor/sails-service-payment.svg) ![License](https://img.shields.io/npm/l/sails-service-payment.svg)
+![Build Status](https://img.shields.io/travis/ghaiklor/sails-service-payment.svg)
+![Coverage](https://img.shields.io/coveralls/ghaiklor/sails-service-payment.svg)
+![Downloads](https://img.shields.io/npm/dm/sails-service-payment.svg)
+![Downloads](https://img.shields.io/npm/dt/sails-service-payment.svg)
+![npm version](https://img.shields.io/npm/v/sails-service-payment.svg)
+![dependencies](https://img.shields.io/david/ghaiklor/sails-service-payment.svg)
+![dev dependencies](https://img.shields.io/david/dev/ghaiklor/sails-service-payment.svg)
+![License](https://img.shields.io/npm/l/sails-service-payment.svg)
 
 Service for Sails framework with Payment features.
 
