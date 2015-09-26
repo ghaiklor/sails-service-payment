@@ -1,4 +1,4 @@
 ./test/**/*.test.js
 --require babelhook.js
---reporter spec
+--reporter nyan
 --recursive
