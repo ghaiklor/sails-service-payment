@@ -24,15 +24,15 @@
   },
   "homepage": "https://github.com/ghaiklor/sails-service-payment#readme",
   "dependencies": {
-    "braintree": "^1.29.0",
-    "lodash": "^3.10.1",
-    "stripe": "^4.0.0"
+    "braintree": "1.29.0",
+    "lodash": "3.10.1",
+    "stripe": "4.0.0"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
-    "chai": "^3.3.0",
-    "istanbul": "^0.3.21",
-    "mocha": "^2.3.3",
-    "sinon": "^1.17.0"
+    "babel": "5.8.23",
+    "chai": "3.3.0",
+    "istanbul": "0.3.21",
+    "mocha": "2.3.3",
+    "sinon": "1.17.1"
   }
 }
