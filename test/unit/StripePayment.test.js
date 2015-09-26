@@ -151,18 +151,17 @@ describe('StripePayment', () => {
   it('Should properly call refund method', done => {
     let payment = new StripePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment.getProvider().charges, 'createRefund', (transactionId, config, cb) => cb(null, 'REFUND'));
+    sinon.stub(payment.getProvider().refunds, 'create', (config, cb) => cb(null, 'REFUND'));
 
     payment
       .refund('TRANSACTION_ID')
       .then(refund => {
         assert.equal(refund, 'REFUND');
-        assert(payment.getProvider().charges.createRefund.calledOnce);
-        assert.equal(payment.getProvider().charges.createRefund.getCall(0).args[0], 'TRANSACTION_ID');
-        assert.isObject(payment.getProvider().charges.createRefund.getCall(0).args[1]);
-        assert.isFunction(payment.getProvider().charges.createRefund.getCall(0).args[2]);
+        assert(payment.getProvider().refunds.create.calledOnce);
+        assert.deepEqual(payment.getProvider().refunds.create.getCall(0).args[0], {charge: 'TRANSACTION_ID'});
+        assert.isFunction(payment.getProvider().refunds.create.getCall(0).args[1]);
 
-        payment.getProvider().charges.createRefund.restore();
+        payment.getProvider().refunds.create.restore();
 
         done();
       })
@@ -172,19 +171,18 @@ describe('StripePayment', () => {
   it('Should properly throw exception on refund', done => {
     let payment = new StripePayment(PROVIDER_CONFIG);
 
-    sinon.stub(payment.getProvider().charges, 'createRefund', (transactionId, config, cb) => cb(new Error('Some error occurred')));
+    sinon.stub(payment.getProvider().refunds, 'create', (config, cb) => cb(new Error('Some error occurred')));
 
     payment
       .refund('TRANSACTION_ID')
       .then(done)
       .catch(error => {
         assert.instanceOf(error, Error);
-        assert(payment.getProvider().charges.createRefund.calledOnce);
-        assert.equal(payment.getProvider().charges.createRefund.getCall(0).args[0], 'TRANSACTION_ID');
-        assert.isObject(payment.getProvider().charges.createRefund.getCall(0).args[1]);
-        assert.isFunction(payment.getProvider().charges.createRefund.getCall(0).args[2]);
+        assert(payment.getProvider().refunds.create.calledOnce);
+        assert.deepEqual(payment.getProvider().refunds.create.getCall(0).args[0], {charge: 'TRANSACTION_ID'});
+        assert.isFunction(payment.getProvider().refunds.create.getCall(0).args[1]);
 
-        payment.getProvider().charges.createRefund.restore();
+        payment.getProvider().refunds.create.restore();
 
         done();
       });

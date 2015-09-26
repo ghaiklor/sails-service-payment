@@ -62,7 +62,7 @@ export default class StripePayment extends BasePayment {
    */
   refund(_transactionId) {
     return new Promise((resolve, reject) => {
-      this.getProvider().charges.createRefund(_transactionId, {}, (error, result) => error ? reject(error) : resolve(result));
+      this.getProvider().refunds.create({charge: _transactionId}, (error, refund) => error ? reject(error) : resolve(refund));
     });
   }
 }
