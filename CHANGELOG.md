@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.3
+
+- General improvements;
+
 ## 3.0.2
 
 - Fix `refund` method for new Stripe version;
