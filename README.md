@@ -67,6 +67,43 @@ Create charge from credit card and proceed to settled transaction. Returns Promi
 
 `config` - Additional configuration for specific payment systems. See appropriate documentation for payment system.
 
+### createCustomer(customerInfo, [config])
+
+Create a customer. This is useful if you want to handle customers in the specified payment provider and attach subscriptions to customers.
+
+`customerInfo` - Object with customer information (including card info):
+
+  - `customerInfo.email` - Customer email optional;
+  - `customerInfo.phone` - Customer phone optional;
+  - `customerInfo.cardNumber` - 16-digit number of credit card;
+  - `customerInfo.cardHolderName` - Full name of card holder
+  - `customerInfo.expMonth` - Expiration date (month);
+  - `customerInfo.expYear` - Expiration date (year);
+  - `customerInfo.cvv` - CVV code (3-digit)
+
+### subscribeCustomer(subscriptionInfo, [config])
+Subscribe a current customer to a plan.
+
+`subscriptionInfo` - Object with credit card information:
+
+  - `subscriptionInfo.plan` - this is the ID of your plan REQUIRED;
+  - `subscriptionInfo.identifier` - For BrainTreePayments this is your payMethodId, for stripe its the customerId, each returned from create a customer;
+
+
+### createAndSubscribe(customerInfo, [config])
+Create a new customer and subscribe them to a plan
+
+`customerInfo` - Object with customer information (including card info):
+
+  - `customerInfo.email` - Customer email optional;
+  - `customerInfo.phone` - Customer phone optional;
+  - `customerInfo.cardNumber` - 16-digit number of credit card;
+  - `customerInfo.cardHolderName` - Full name of card holder
+  - `customerInfo.expMonth` - Expiration date (month);
+  - `customerInfo.expYear` - Expiration date (year);
+  - `customerInfo.cvv` - CVV code (3-digit)
+  - `customerInfo.plan` - PlanId to subscribe customer to
+
 ### retrieve(transactionId)
 
 Retrieve information about settled transaction. Returns Promise.
@@ -78,6 +115,14 @@ Retrieve information about settled transaction. Returns Promise.
 Refund already settled transaction. Returns Promise.
 
 `transactionId` - ID of settled transaction. You can get it from `checkout` result.
+
+### cancelSubscription(transactionId)
+
+Retrieve information about settled transaction. Returns Promise.
+`subscription` - Object with subscription information
+  - `subscription.subscriptionId` - subscriptionId required;
+  - `subscription.customerId` - CustomerID required for stripe, braintree optional;
+
 
 ## Examples
 
