@@ -3,8 +3,8 @@ import stripe from 'stripe';
 import BasePayment from './BasePayment';
 
 export default class StripePayment extends BasePayment {
-  constructor(...args) {
-    super(...args);
+  constructor(config) {
+    super(config);
 
     this.setProvider(stripe(this.get('apiKey')));
   }

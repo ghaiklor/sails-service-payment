@@ -3,8 +3,8 @@ import braintree from 'braintree';
 import BasePayment from './BasePayment';
 
 export default class BrainTreePayment extends BasePayment {
-  constructor(...args) {
-    super(...args);
+  constructor(config) {
+    super(config);
 
     this.setProvider(braintree.connect({
       environment: this.get('sandbox') === false ? braintree.Environment.Production : braintree.Environment.Sandbox,
