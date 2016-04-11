@@ -27,7 +27,7 @@
   "homepage": "https://github.com/ghaiklor/sails-service-payment#readme",
   "dependencies": {
     "braintree": "1.37.0",
-    "lodash": "4.9.0",
+    "lodash": "4.10.0",
     "stripe": "4.5.0"
   },
   "devDependencies": {
