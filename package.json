@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/ghaiklor/sails-service-payment#readme",
   "dependencies": {
-    "braintree": "2.10.0",
+    "braintree": "2.11.0",
     "lodash": "4.17.9",
     "stripe": "5.10.0"
   },
@@ -39,8 +39,8 @@
     "cz-conventional-changelog": "2.1.0",
     "isparta": "4.0.0",
     "mocha": "5.2.0",
-    "semantic-release": "15.1.11",
-    "sinon": "5.0.3"
+    "semantic-release": "15.4.2",
+    "sinon": "5.0.8"
   },
   "config": {
     "commitizen": {
