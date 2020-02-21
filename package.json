@@ -28,7 +28,7 @@
   "dependencies": {
     "braintree": "2.21.0",
     "lodash": "4.17.15",
-    "stripe": "8.8.1"
+    "stripe": "8.20.0"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
