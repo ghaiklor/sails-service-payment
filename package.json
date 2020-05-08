@@ -6,9 +6,10 @@
   "scripts": {
     "compile": "babel src --out-dir lib",
     "coveralls": "cat coverage/lcov.info | coveralls",
-    "prepublish": "npm run compile",
+    "prepublish": "npm run snyk-protect && npm run compile",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "test": "babel-node ./node_modules/.bin/isparta cover _mocha"
+    "test": "babel-node ./node_modules/.bin/isparta cover _mocha",
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
@@ -52,5 +53,6 @@
   },
   "release": {
     "branch": "master"
-  }
+  },
+  "snyk": true
 }
