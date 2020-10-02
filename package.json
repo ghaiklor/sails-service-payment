@@ -28,8 +28,8 @@
   "homepage": "https://github.com/ghaiklor/sails-service-payment#readme",
   "dependencies": {
     "braintree": "2.24.0",
-    "lodash": "4.17.19",
-    "stripe": "8.67.0"
+    "stripe": "8.80.0",
+    "lodash": "4.17.20"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
